@@ -15,7 +15,7 @@ const App = () => {
         screenOptions={{
           headerShown: false
         }}
-        initialRouteName={'RegisterScreen'}
+        initialRouteName={'HomeScreen'}
       >
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />

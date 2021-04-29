@@ -18,10 +18,11 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({ navigation }) => {
 
-   const[firstName, setFirstName]= useState('');
-   const[lastName, setLastName]= useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
+   const [phoneNumber, setPhoneNumber] = useState('');
 
    const [image, setImage] = useState(images.insertImage);
    const takePhotoFromCamera = () => {
@@ -49,7 +50,9 @@ const RegisterScreen = ({navigation}) => {
    function renderHeader() {
       return (
          <View style={{ flexDirection: "column", marginHorizontal: wp(5.6) }}>
-            <TouchableOpacity onPress={()=>{navigation.navigate("HomeScreen", {param1:"firstName", param2:"lastName"})}}>
+            <TouchableOpacity onPress={() => {
+               navigation.navigate("HomeScreen")
+            }}>
                <Image
                   source={icons.back}
                   resizeMode='contain'
@@ -64,7 +67,7 @@ const RegisterScreen = ({navigation}) => {
             <View style={styles.warningContainer}>
                <Text style={styles.warningText}>Та бүх мэдээллээ үнэн зөв оруулна уу. Худал мэдээлэл оруулсан тохиолдолд тэмцээнд оролцох боломжгүй болно.</Text>
             </View>
-         </View>
+         </View >
       )
    }
 
@@ -120,18 +123,20 @@ const RegisterScreen = ({navigation}) => {
                <Text style={styles.textInputTitle}>Овог</Text>
                <MyInput
                   placeholder="Та овгоо оруулна уу."
-                  onChangeText={(value)=>setFirstName(value)}
+                  onChangeText={(value) => setFirstName(value)}
                />
                <Text style={styles.textInputTitle}>Нэр</Text>
                <MyInput
                   placeholder="Та нэрээ оруулна уу."
-                  onChangeText={(value)=>setLastName(value)}
+                  onChangeText={(value) => setLastName(value)}
                />
                <Text style={styles.textInputTitle}>Утас</Text>
                <MyInput
                   placeholder="Та утасны дугаараа оруулна уу."
                   keyboardType="numeric"
                   maxLength={8}
+                  onChangeText={(value) => setPhoneNumber(value)}
+
                />
                <Text style={styles.textInputTitle}>Хүйс</Text>
                <View style={styles.radioContainer}>
@@ -139,6 +144,7 @@ const RegisterScreen = ({navigation}) => {
                      <RadioButton
                         onPress={() => onRadioBtnClick(item)}
                         selected={item.selected}
+                        value={item.value}
                         key={item.id}
                      >
                         {item.name}
@@ -210,7 +216,15 @@ const RegisterScreen = ({navigation}) => {
                      <Text style={styles.btnText}>ЗУРАГ ХУУЛАХ</Text>
                   </View>
                </TouchableOpacity>
-               <TouchableOpacity style={styles.btnContainer}>
+               <TouchableOpacity style={styles.btnContainer} onPress={() => {
+                  navigation.navigate("HomeScreen"
+                     , {
+                        firstName: firstName,
+                        lastName: lastName,
+                        phoneNumber: phoneNumber,
+                     }
+                  )
+               }}>
                   <View style={styles.btnSubContainer}>
                      <Text style={styles.btnText}>ХАДГАЛАХ</Text>
                   </View>

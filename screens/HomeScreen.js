@@ -7,7 +7,6 @@ import {
    View,
    StyleSheet,
    TouchableOpacity,
-   PixelRatio
 } from 'react-native';
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import { images, icons, COLORS, SIZES, FONTS } from "../constants";
@@ -17,7 +16,7 @@ import Modal from 'react-native-modal';
 
 const HomeScreen = ({ navigation, route }) => {
    const [modalVisible, setModalVisible] = useState(false);
-   const [param1, param2] = route.params;
+   const {firstName, lastName, phoneNumber} = route.params
    console.log(route.params);
    function modal() {
       return (
@@ -62,8 +61,9 @@ const HomeScreen = ({ navigation, route }) => {
                </View>
             </Modal>
             <View>
-               <Text>{param1}</Text>
-               <Text>{param2}</Text>
+               <Text>{firstName}</Text>
+               <Text>{lastName}</Text>
+               <Text>{phoneNumber}</Text>
             </View>
          </View>
       )
