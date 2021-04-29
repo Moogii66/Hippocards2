@@ -16,15 +16,18 @@ import Modal from 'react-native-modal';
 
 const HomeScreen = ({ navigation, route }) => {
    const [modalVisible, setModalVisible] = useState(false);
-   const {firstName, lastName, phoneNumber} = route.params
-   console.log(route.params);
+   // const {firstName, lastName, phoneNumber} = route.params
+   // console.log(route.params);
    function modal() {
       return (
-         <View>
+         <View style={{backgroundColor:"red"}}>
             <Modal
                animationType="fade"
                transparent={true}
                visible={modalVisible}
+               onSwipeComplete={() => setModalVisible(false)}
+               swipeDirection="down"
+               style={{backgroundColor:"#00000050", margin:0}}
             >
                <View style={styles.centeredView}>
                   <View style={styles.modalView}>
@@ -60,11 +63,6 @@ const HomeScreen = ({ navigation, route }) => {
                   </View>
                </View>
             </Modal>
-            <View>
-               <Text>{firstName}</Text>
-               <Text>{lastName}</Text>
-               <Text>{phoneNumber}</Text>
-            </View>
          </View>
       )
    }

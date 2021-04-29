@@ -23,6 +23,10 @@ const RegisterScreen = ({ navigation }) => {
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
    const [phoneNumber, setPhoneNumber] = useState('');
+   const [isRegistered, setIsRegistered] = useState(false);
+   const registered = () => {
+      setIsRegistered(!isRegistered);
+   };
 
    const [image, setImage] = useState(images.insertImage);
    const takePhotoFromCamera = () => {
@@ -43,7 +47,6 @@ const RegisterScreen = ({ navigation }) => {
       }).then(image => {
          console.log(image);
          setImage(image.path);
-         this.bs.current.snapTo(1)
       });
    }
 
@@ -217,13 +220,10 @@ const RegisterScreen = ({ navigation }) => {
                   </View>
                </TouchableOpacity>
                <TouchableOpacity style={styles.btnContainer} onPress={() => {
-                  navigation.navigate("HomeScreen"
-                     , {
-                        firstName: firstName,
-                        lastName: lastName,
-                        phoneNumber: phoneNumber,
-                     }
-                  )
+                  navigation.navigate("HomeScreen"), registered,
+                  {
+                     isRegistered:isRegistered
+                  }
                }}>
                   <View style={styles.btnSubContainer}>
                      <Text style={styles.btnText}>ХАДГАЛАХ</Text>
