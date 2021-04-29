@@ -30,6 +30,7 @@ const RegisterScreen = ({navigation}) => {
     }).then(image => {
       console.log(image);
       setImage(image.path);
+      // this.bs.current.snapTo(1);
     });
   };
   const choosePhotoFromLibrary = () => {
@@ -41,6 +42,7 @@ const RegisterScreen = ({navigation}) => {
     }).then(image => {
       console.log(image);
       setImage(image.path);
+      // this.bs.current.snapTo(1);
     });
   };
 
