@@ -15,13 +15,72 @@ import RadioButton from '../components/RadioButton';
 import DatePicker from 'react-native-datepicker';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
+import insertImage from '../assets/images/insertImage.png';
 
-const RegisterScreen = ({navigation}) => {
+export const JsonParse = async data => {
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    return data;
+  }
+};
+
+export const fetchData = async (
+  url,
+  body = null,
+  type = 'application/json',
+) => {
+  try {
+    console.log(body);
+    let response = await fetch(`${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Accept: 'application/json',
+      },
+      body,
+    });
+    let data = await response.text();
+    data = await JsonParse(data);
+    return {
+      data,
+    };
+  } catch (error) {
+    return false;
+  }
+};
+
+const RegisterLeague = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  const [image, setImage] = useState(images.insertImage);
+  const SaveBtn = async () => {
+    navigation.navigate('Home');
+    // let formdata = new FormData();
+    // console.log('fetching');
+    // formdata.append('firstname', firstName);
+    // formdata.append('lastname', lastName);
+    // formdata.append('phonenumber', phoneNumber);
+    // formdata.append('gender', gender);
+    // formdata.append('birthday', date);
+    // const url = 'http://13.212.244.253/api/auth/register';
+    // let res = await fetchData(url, formdata);
+    // console.log('res', res);
+    // if (res.data.success) {
+    //   navigation.navigate('Login');
+    // } else {
+    //   showMessage({
+    //     message: 'Register failed',
+    //     type: 'warning',
+    //   });
+    //   setErroremail(res.data.error.email);
+    //   setErrorName(res.data.error.name);
+    //   setErrorpassword(res.data.error.password);
+    // }
+  };
+
+  const [uploadImage, setUploadImage] = useState('empty');
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -29,7 +88,7 @@ const RegisterScreen = ({navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setImage(image.path);
+      setUploadImage(image.path);
       // this.bs.current.snapTo(1);
     });
   };
@@ -41,17 +100,22 @@ const RegisterScreen = ({navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setImage(image.path);
+      setUploadImage(image.path);
       // this.bs.current.snapTo(1);
     });
   };
 
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'column', marginHorizontal: wp(5.6)}}>
+      <View
+        style={{
+          flexDirection: 'column',
+          marginHorizontal: wp(5.6),
+          marginTop: 20,
+        }}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('HomeScreen');
+            navigation.navigate('Home');
           }}>
           <Image
             source={icons.back}
@@ -198,19 +262,26 @@ const RegisterScreen = ({navigation}) => {
           <Text style={styles.textInputTitle}>
             Өөрийн цээж зураг эсвэл сурагчийн үнэмлэх
           </Text>
-
           <View style={{alignItems: 'center'}}>
-            <Image
-              source={{
-                uri: image,
-              }}
-              resizeMode="contain"
-              style={{
-                width: wp(52),
-                height: hp(13.2),
-              }}
-            />
+            {uploadImage == 'empty' ? (
+              <Image
+                style={{width: 195, height: 107}}
+                source={images.insertImage}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: uploadImage,
+                }}
+                resizeMode="contain"
+                style={{
+                  width: wp(52),
+                  height: hp(13.2),
+                }}
+              />
+            )}
           </View>
+
           <TouchableOpacity
             style={styles.btnContainer}
             onPress={() => setModalVisible(!isModalVisible)}>
@@ -227,15 +298,7 @@ const RegisterScreen = ({navigation}) => {
               <Text style={styles.btnText}>ЗУРАГ ХУУЛАХ</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnContainer}
-            onPress={() => {
-              navigation.navigate('HomeScreen', {
-                firstName: firstName,
-                lastName: lastName,
-                phoneNumber: phoneNumber,
-              });
-            }}>
+          <TouchableOpacity style={styles.btnContainer} onPress={SaveBtn}>
             <View style={styles.btnSubContainer}>
               <Text style={styles.btnText}>ХАДГАЛАХ</Text>
             </View>
@@ -342,4 +405,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default RegisterLeague;

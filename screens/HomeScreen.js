@@ -8,20 +8,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  Button,
 } from 'react-native';
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import {images, icons, COLORS, SIZES, FONTS} from '../constants';
 import {hp, wp} from '../constants/theme';
 import Modal from 'react-native-modal';
 
-const HomeScreen = ({navigation, route}) => {
+const HomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  //   const {firstName, lastName, phoneNumber} = route.params;
-  console.log(route);
   function modal() {
     return (
       <SafeAreaView>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="default" />
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -61,7 +60,7 @@ const HomeScreen = ({navigation, route}) => {
                 <TouchableOpacity
                   style={[styles.button, styles.buttonOK]}
                   onPress={() => {
-                    navigation.navigate('RegisterScreen'),
+                    navigation.navigate('RegisterLeague'),
                       setModalVisible(!modalVisible);
                   }}>
                   <Text style={styles.buttonText}>ОК</Text>
@@ -70,11 +69,6 @@ const HomeScreen = ({navigation, route}) => {
             </View>
           </View>
         </Modal>
-        {/* <View>
-          <Text>{firstName}</Text>
-          <Text>{lastName}</Text>
-          <Text>{phoneNumber}</Text>
-        </View> */}
       </SafeAreaView>
     );
   }
@@ -111,9 +105,8 @@ const HomeScreen = ({navigation, route}) => {
             style={{
               width: wp(92),
               height: hp(11),
-              resizeMode: 'cover',
-              justifyContent: 'center',
-            }}>
+            }}
+            imageStyle={{borderRadius: 10}}>
             <View>
               <View style={{flexDirection: 'row'}}>
                 <Image
@@ -129,18 +122,17 @@ const HomeScreen = ({navigation, route}) => {
                   style={{
                     flexDirection: 'column',
                     marginLeft: wp(3.7),
-                    paddingVertical: hp(1.35),
                   }}>
                   <Text style={{...FONTS.buttonText1, color: COLORS.white}}>
                     10 ЯЛАГЧ
                   </Text>
                   <View
                     style={{
+                      justifyContent: 'center',
                       backgroundColor: COLORS.white,
                       width: wp(60),
                       height: hp(2.6),
                       paddingHorizontal: wp(3.3),
-                      paddingVertical: hp(0.4),
                       borderRadius: 25,
                       marginBottom: hp(0.76),
                     }}>
@@ -158,7 +150,6 @@ const HomeScreen = ({navigation, route}) => {
                       width: wp(26.3),
                       height: hp(2.3),
                       paddingHorizontal: wp(3.3),
-                      paddingVertical: hp(0.3),
                       borderRadius: 25,
                       alignSelf: 'flex-end',
                     }}>
@@ -180,6 +171,12 @@ const HomeScreen = ({navigation, route}) => {
       {renderHeader()}
       {renderButton()}
       {modal()}
+      <Button
+        onPress={() => {
+          navigation.navigate('LeagueInfo');
+        }}
+        title="leagueinfo"
+      />
     </SafeAreaView>
   );
 };

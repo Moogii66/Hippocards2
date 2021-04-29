@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 
-import HomeScreen from "./screens/HomeScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-
+import HomeScreen from './screens/HomeScreen';
+import RegisterScreen from './screens/RegisterLeague';
+import LeagueInfoScreen from './screens/LeagueInfoScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,15 +13,15 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
+          headerShown: false,
         }}
-        initialRouteName={'HomeScreen'}
-      >
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        initialRouteName={'LeagueinfoScreen'}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="RegisterLeague" component={RegisterScreen} />
+        <Stack.Screen name="LeagueInfo" component={LeagueInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 
 export default App;
