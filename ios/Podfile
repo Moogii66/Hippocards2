@@ -12,7 +12,6 @@ target 'Hippocards2' do
     :hermes_enabled => false
   )
 
-  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
   target 'Hippocards2Tests' do
     inherit! :complete
