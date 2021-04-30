@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -8,8 +8,8 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {hp, wp} from '../constants/theme';
-import {images, icons, COLORS, SIZES, FONTS} from '../constants';
+import { hp, wp } from '../constants/theme';
+import { images, icons, COLORS, SIZES, FONTS } from '../constants';
 import MyInput from '../components/MyInput';
 import RadioButton from '../components/RadioButton';
 import DatePicker from 'react-native-datepicker';
@@ -50,13 +50,14 @@ export const fetchData = async (
   }
 };
 
-const RegisterLeague = ({navigation}) => {
+const RegisterLeague = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const SaveBtn = async () => {
-    navigation.navigate('Home');
+    navigation.navigate('Home', { isRegistered: true });
     // let formdata = new FormData();
     // console.log('fetching');
     // formdata.append('firstname', firstName);
@@ -127,7 +128,7 @@ const RegisterLeague = ({navigation}) => {
           />
         </TouchableOpacity>
 
-        <Text style={{...FONTS.modalText1, marginTop: hp(2.22)}}>
+        <Text style={{ ...FONTS.modalText1, marginTop: hp(2.22) }}>
           БҮРТГҮҮЛЭХ
         </Text>
         <View style={styles.warningContainer}>
@@ -141,14 +142,14 @@ const RegisterLeague = ({navigation}) => {
   }
 
   const [gender, setGender] = useState([
-    {id: 1, value: true, name: 'Эмэгтэй', selected: false},
-    {id: 2, value: false, name: 'Эрэгтэй', selected: false},
+    { id: 1, value: true, name: 'Эмэгтэй', selected: false },
+    { id: 2, value: false, name: 'Эрэгтэй', selected: false },
   ]);
   const onRadioBtnClick = item => {
     let updateState = gender.map(genderItem =>
       genderItem.id == item.id
-        ? {...genderItem, selected: true}
-        : {...genderItem, selected: false},
+        ? { ...genderItem, selected: true }
+        : { ...genderItem, selected: false },
     );
     setGender(updateState);
   };
@@ -169,7 +170,7 @@ const RegisterLeague = ({navigation}) => {
           transparent={true}
           onSwipeComplete={() => setModalVisible(false)}
           swipeDirection="down"
-          style={{margin: 0}}>
+          style={{ margin: 0 }}>
           <View style={styles.modalBody}>
             <TouchableOpacity
               style={styles.closeBtn}
@@ -262,10 +263,10 @@ const RegisterLeague = ({navigation}) => {
           <Text style={styles.textInputTitle}>
             Өөрийн цээж зураг эсвэл сурагчийн үнэмлэх
           </Text>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             {uploadImage == 'empty' ? (
               <Image
-                style={{width: 195, height: 107}}
+                style={{ width: 195, height: 107 }}
                 source={images.insertImage}
               />
             ) : (
@@ -308,7 +309,7 @@ const RegisterLeague = ({navigation}) => {
     );
   }
   return (
-    <SafeAreaView style={{backgroundColor: COLORS.white}}>
+    <SafeAreaView style={{ backgroundColor: COLORS.white }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {renderHeader()}
         {renderInput()}

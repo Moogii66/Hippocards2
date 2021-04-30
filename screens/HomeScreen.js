@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   Image,
@@ -9,14 +9,17 @@ import {
   TouchableOpacity,
   StatusBar,
   Button,
+  Alert,
 } from 'react-native';
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
-import {images, icons, COLORS, SIZES, FONTS} from '../constants';
-import {hp, wp} from '../constants/theme';
+import { images, icons, COLORS, SIZES, FONTS } from '../constants';
+import { hp, wp } from '../constants/theme';
 import Modal from 'react-native-modal';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation, route }) => {
+
   const [modalVisible, setModalVisible] = useState(false);
+  const { isRegistered } = route.params ? route.params : false;
   function modal() {
     return (
       <SafeAreaView>
@@ -76,10 +79,10 @@ const HomeScreen = ({navigation}) => {
   function renderHeader() {
     return (
       <View>
-        <View style={{flexDirection: 'column', marginHorizontal: wp(3.7)}}>
-          <Text style={{...FONTS.text1}}>Сайн уу!</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{...FONTS.text2}}>Амараа</Text>
+        <View style={{ flexDirection: 'column', marginHorizontal: wp(3.7) }}>
+          <Text style={{ ...FONTS.text1 }}>Сайн уу!</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ ...FONTS.text2 }}>Амараа</Text>
             <Image
               source={images.pro}
               resizeMode="contain"
@@ -106,9 +109,9 @@ const HomeScreen = ({navigation}) => {
               width: wp(92),
               height: hp(11),
             }}
-            imageStyle={{borderRadius: 10}}>
+            imageStyle={{ borderRadius: 10 }}>
             <View>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Image
                   source={images.trophy}
                   style={{
@@ -123,7 +126,7 @@ const HomeScreen = ({navigation}) => {
                     flexDirection: 'column',
                     marginLeft: wp(3.7),
                   }}>
-                  <Text style={{...FONTS.buttonText1, color: COLORS.white}}>
+                  <Text style={{ ...FONTS.buttonText1, color: COLORS.white }}>
                     10 ЯЛАГЧ
                   </Text>
                   <View
@@ -153,7 +156,7 @@ const HomeScreen = ({navigation}) => {
                       borderRadius: 25,
                       alignSelf: 'flex-end',
                     }}>
-                    <Text style={{...FONTS.buttonText3, color: COLORS.white}}>
+                    <Text style={{ ...FONTS.buttonText3, color: COLORS.white }}>
                       5 өдөр : 14 цаг
                     </Text>
                   </View>
@@ -172,9 +175,7 @@ const HomeScreen = ({navigation}) => {
       {renderButton()}
       {modal()}
       <Button
-        onPress={() => {
-          navigation.navigate('LeagueInfo');
-        }}
+        onPress={() => isRegistered ? navigation.navigate('LeagueInfo') : Alert.alert("Burtguulchilde")}
         title="leagueinfo"
       />
     </SafeAreaView>
