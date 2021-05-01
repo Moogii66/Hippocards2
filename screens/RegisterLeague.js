@@ -308,8 +308,10 @@ const RegisterLeague = ({navigation}) => {
     );
   }
   return (
-    <SafeAreaView style={{backgroundColor: COLORS.white}}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <SafeAreaView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: 'white'}}>
         {renderHeader()}
         {renderInput()}
         {bottomModal()}
