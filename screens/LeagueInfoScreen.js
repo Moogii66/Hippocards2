@@ -15,7 +15,7 @@ const LeagueInfoScreen = ({navigation}) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         flex: 1,
       }}>
       <ScrollView>
