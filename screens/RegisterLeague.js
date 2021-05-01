@@ -16,6 +16,7 @@ import DatePicker from 'react-native-datepicker';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
 import insertImage from '../assets/images/insertImage.png';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export const JsonParse = async data => {
   try {
@@ -54,9 +55,10 @@ const RegisterLeague = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const SaveBtn = async () => {
-    navigation.navigate('Home');
+    navigation.navigate('Home', {isRegistered: true});
     // let formdata = new FormData();
     // console.log('fetching');
     // formdata.append('firstname', firstName);
@@ -311,7 +313,7 @@ const RegisterLeague = ({navigation}) => {
     <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{backgroundColor: 'white'}}>
+        style={{backgroundColor: COLORS.white}}>
         {renderHeader()}
         {renderInput()}
         {bottomModal()}

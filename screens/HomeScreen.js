@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Button,
+  Alert,
 } from 'react-native';
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import {images, icons, COLORS, SIZES, FONTS} from '../constants';
@@ -172,9 +173,11 @@ const HomeScreen = ({navigation}) => {
       {renderButton()}
       {modal()}
       <Button
-        onPress={() => {
-          navigation.navigate('LeagueInfo');
-        }}
+        onPress={() =>
+          isRegistered
+            ? navigation.navigate('LeagueInfo')
+            : Alert.alert('Burtguulchilde')
+        }
         title="leagueinfo"
       />
     </SafeAreaView>
