@@ -8,6 +8,9 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {hp, wp} from '../constants/theme';
 import {images, icons, COLORS, SIZES, FONTS} from '../constants';
 import MyInput from '../components/MyInput';
@@ -51,14 +54,20 @@ export const fetchData = async (
   }
 };
 
-const RegisterLeague = ({navigation}) => {
+const RegisterLeague = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
+  console.log('isRegistered :>> ', isRegistered);
 
   const SaveBtn = async () => {
-    navigation.navigate('Home', {isRegistered: true});
+    try {
+      await AsyncStorage.setItem('Registered', JSON.stringify(true));
+    } catch (e) {
+      // saving error
+    }
+    navigation.navigate('Home');
     // let formdata = new FormData();
     // console.log('fetching');
     // formdata.append('firstname', firstName);

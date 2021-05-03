@@ -5,6 +5,7 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import HomeScreen from './screens/HomeScreen';
 import RegisterScreen from './screens/RegisterLeague';
 import LeagueInfoScreen from './screens/LeagueInfoScreen';
+import LeaderBoardScreen from './screens/LeaderBoardScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="RegisterLeague" component={RegisterScreen} />
         <Stack.Screen name="LeagueInfo" component={LeagueInfoScreen} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

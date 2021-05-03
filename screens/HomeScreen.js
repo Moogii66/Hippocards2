@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Image,
@@ -11,6 +11,8 @@ import {
   Button,
   Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import {images, icons, COLORS, SIZES, FONTS} from '../constants';
 import {hp, wp} from '../constants/theme';
@@ -18,6 +20,21 @@ import Modal from 'react-native-modal';
 
 const HomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Registered');
+      if (value !== null) {
+        setIsRegistered(JSON.parse(value));
+        console.log('isRegistered :>> ', isRegistered);
+      }
+    } catch (e) {}
+  };
+
   function modal() {
     return (
       <SafeAreaView>
@@ -99,7 +116,12 @@ const HomeScreen = ({navigation}) => {
 
   function renderButton() {
     return (
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableOpacity
+        onPress={() =>
+          isRegistered
+            ? navigation.navigate('LeaderBoard')
+            : setModalVisible(true)
+        }>
         <View style={styles.bannerCantainer}>
           <ImageBackground
             source={images.greenBackImage}
@@ -123,6 +145,7 @@ const HomeScreen = ({navigation}) => {
                   style={{
                     flexDirection: 'column',
                     marginLeft: wp(3.7),
+                    paddingVertical: 7,
                   }}>
                   <Text style={{...FONTS.buttonText1, color: COLORS.white}}>
                     10 ЯЛАГЧ
@@ -153,8 +176,13 @@ const HomeScreen = ({navigation}) => {
                       paddingHorizontal: wp(3.3),
                       borderRadius: 25,
                       alignSelf: 'flex-end',
+                      justifyContent: 'center',
                     }}>
-                    <Text style={{...FONTS.buttonText3, color: COLORS.white}}>
+                    <Text
+                      style={{
+                        ...FONTS.buttonText3,
+                        color: COLORS.white,
+                      }}>
                       5 өдөр : 14 цаг
                     </Text>
                   </View>
@@ -172,14 +200,6 @@ const HomeScreen = ({navigation}) => {
       {renderHeader()}
       {renderButton()}
       {modal()}
-      <Button
-        onPress={() =>
-          isRegistered
-            ? navigation.navigate('LeagueInfo')
-            : Alert.alert('Burtguulchilde')
-        }
-        title="leagueinfo"
-      />
     </SafeAreaView>
   );
 };

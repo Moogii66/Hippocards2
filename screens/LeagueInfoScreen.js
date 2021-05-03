@@ -153,7 +153,7 @@ export default LeagueInfoScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 33,
+    marginHorizontal: wp(5.6),
     marginTop: 10,
     // backgroundColor: '#E5E5E5',
   },
